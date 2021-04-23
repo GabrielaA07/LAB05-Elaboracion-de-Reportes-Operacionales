@@ -1,0 +1,48 @@
+--CREATE DATABASE Control_de_libros_Sucarnet
+--GO
+
+USE Control_de_libros_Sucarnet
+GO
+
+CREATE TABLE Autor (
+	Codigo VARCHAR(10) NOT NULL PRIMARY KEY,
+	Nombres VARCHAR(30) NULL,
+	Apellidos VARCHAR(30) NULL,
+	Nacionalidad VARCHAR(30) NULL
+)
+GO
+
+CREATE TABLE Editorial (
+	Codigo VARCHAR(10) NOT NULL PRIMARY KEY,
+	Nombre VARCHAR(30) NULL,
+	Pais VARCHAR(30) NULL
+)
+GO
+
+CREATE TABLE Libro (
+	Codigo VARCHAR(10) NOT NULL PRIMARY KEY,
+	Titulo VARCHAR(30) NULL,
+	ISBN VARCHAR(30) NULL,
+	Descripcion VARCHAR(30) NULL,
+	Resumen VARCHAR(30) NULL,
+	Año_Edicion INT NULL,
+	Cod_Editorial VARCHAR(10) NOT NULL FOREIGN KEY REFERENCES Editorial(Codigo)
+)
+GO
+
+CREATE TABLE Autor_Libro (
+	Cod_Libro VARCHAR(10) NOT NULL FOREIGN KEY REFERENCES Libro(Codigo),
+	Cod_Autor VARCHAR(10) NOT NULL FOREIGN KEY REFERENCES Autor(Codigo),
+	
+)
+GO
+
+CREATE TABLE Ejemplar (
+	Cod_Libro VARCHAR(10) NOT NULL FOREIGN KEY REFERENCES Libro(Codigo),
+	Ubicacion VARCHAR(30) NULL,
+	Estado VARCHAR(30) NULL
+)
+GO
+
+ALTER AUTHORIZATION ON DATABASE::Control_de_libros_Sucarnet TO sa
+GO
